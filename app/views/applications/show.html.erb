@@ -6,4 +6,16 @@
     <%= "#{@application.state}" %>
     <%= "#{@application.zip}" %> </p>
 <p> <%= "#{@application.description}" %> </p>
+<p> Add pets to this application: </p>
+<%= form_tag("/applications/#{@application.id}", method: :patch) do %>
+  <%= label_tag :pet_name %>
+  <%= text_field_tag :pet_name %>
+  <%= submit_tag 'Search Pets'%>
+<% end %>
+<h3>Application for:</h3>
+<ul>
+<% @application.pets.each do |pet| %>
+<li> <%= pet.name %> </li>
+<% end %>
+</ul>
 <h3> Status: <%= "#{@application.status}" %> </h3>
