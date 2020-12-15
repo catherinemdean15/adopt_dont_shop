@@ -7,7 +7,7 @@ RSpec.describe 'Applications show page', type: :feature do
 
   it "displays the applicant information" do
     visit "applications/#{@application1.id}"
-save_and_open_page
+
     expect(page).to have_content(@application1.name)
     expect(page).to have_content(@application1.street_address)
     expect(page).to have_content(@application1.city)
