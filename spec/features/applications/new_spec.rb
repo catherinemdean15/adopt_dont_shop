@@ -25,6 +25,9 @@ RSpec.describe 'New application page', type: :feature do
   end
 
   it 'has a form to search pets by name' do
+    @shelter1 = Shelter.create!(name: "Shady Shelter", address: "123 Shady Ave", city: "Denver", state: "CO", zip: 80011)
+    @pet1 = @shelter1.pets.create!(image:"", name: "Thor", description: "dog", approximate_age: 2, sex: "male")
+
     visit '/applications/new'
 
     fill_in 'Name', with: 'Name'
@@ -34,8 +37,12 @@ RSpec.describe 'New application page', type: :feature do
     fill_in 'Zip', with: '80221'
 
     click_button 'Begin Application'
-    expect(page).to have_field("Pet Name")
+    expect(page).to have_field("Pet name")
     expect(page).to have_button("Search Pets")
+
+    fill_in 'Pet name', with: 'Thor'
+    click_button 'Search Pets'
+    expect(page).to have_content('Thor')
 
   end
 
