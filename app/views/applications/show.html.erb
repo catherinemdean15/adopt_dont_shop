@@ -1,0 +1,61 @@
+<h1>Application <%= "#{@application.id}" %></h1>
+
+<% if @application.status == "In Progress" %>
+  <h3> <%= "#{@application.name}" %> </h3>
+  <p> <%= "#{@application.street_address}" %>
+      <%= "#{@application.city}" %>
+      <%= "#{@application.state}" %>
+      <%= "#{@application.zip}" %> </p>
+
+  <p> Add pets to this application: </p>
+  <%= form_tag("/applications/#{@application.id}", method: :patch) do %>
+    <%= label_tag :pet_name %>
+    <%= text_field_tag :pet_name %>
+    <%= submit_tag 'Search Pets'%>
+  <% end %>
+  <% if @pets %>
+  <h4> Pets matching: <%= params[:pet_name] %> </h4>
+  <ul>
+    <% @pets.each do |pet| %>
+    <li> <%= pet.name %>
+     <%= form_tag("/applications/#{@application.id}?pet_id=#{pet.id}", method: :post) do %>
+            <%= submit_tag "Add pet"%>
+          <% end %> </li>
+    <% end %>
+  </ul>
+  <% end %>
+
+  <h3>Application for:</h3>
+  <ul>
+  <% @application.pets.each do |pet| %>
+  <li> <%= pet.name %> </li>
+  <% end %>
+  </ul>
+  <h3> Status: <%= "#{@application.status}" %> </h3>
+
+  <% if @application.pets.first %>
+    <p>Why would you make a good home for a pet? </p>
+    <%= form_tag("/applications/#{@application.id}", method: :patch) do %>
+      <%= label_tag :description %>
+      <%= text_field_tag :description %>
+
+      <%= submit_tag 'Submit Application' %>
+    <% end %>
+  <% end %>
+
+
+<% elsif @application.status == "Pending" %>
+  <h3> <%= "#{@application.name}" %> </h3>
+  <p> <%= "#{@application.street_address}" %>
+      <%= "#{@application.city}" %>
+      <%= "#{@application.state}" %>
+      <%= "#{@application.zip}" %> </p>
+  <p> <%= "#{@application.description}" %> </p>
+  <h3>Application for:</h3>
+  <ul>
+  <% @application.pets.each do |pet| %>
+  <li> <%= pet.name %> </li>
+  <% end %>
+  </ul>
+  <h3> Status: <%= "#{@application.status}" %> </h3>
+<% end %>

@@ -17,6 +17,10 @@
   </head><br>
 
   <body>
+    <% flash.each do |type, notice| %>
+      <p><%= notice %></p>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>
