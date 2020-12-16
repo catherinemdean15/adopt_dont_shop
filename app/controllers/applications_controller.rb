@@ -11,25 +11,29 @@ class ApplicationsController < ApplicationController
   end
 
   def create
-      application = Application.new(application_params)
-      application[:status] = "In Progress"
-    if application.save
-      redirect_to "/applications/#{application.id}"
+      @application = Application.new(application_params)
+      @application[:status] = "In Progress"
+    if @application.save
+      redirect_to "/applications/#{@application.id}"
     else
-      flash[:notice] = "All fields must be completed"
-      render :new
+      flash.now[:notice] = "All fields must be completed"
+      render :new, action: @application
     end
   end
 
 
   def update
     @application = Application.find(params[:id])
-    @pet = Pet.where(name: params[:pet_name])
-    @application.update({
-          pets: @pet,
+    if params[:pet_name]
+      @pets = Pet.partial_match(params[:pet_name], "name")
+      render :show
+    elsif params[:description]
+      @application.update({
+        status: "Pending",
+        description: params[:description]
         })
-      @application.save
       redirect_to "/applications/#{@application.id}"
+    end
   end
 
   private
