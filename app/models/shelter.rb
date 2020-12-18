@@ -10,11 +10,15 @@ class Shelter < ApplicationRecord
   end
 
   def average_pet_age
-    #self.pets.average(:age)
+    self.pets.average(:approximate_age)
   end
 
-  def number_adopted
-    pets.where(adoptable: false).count
+  def adoptable_number(boolean)
+    pets.where(adoptable: boolean).count
+  end
+
+  def pets_pending
+    
   end
 
 end
