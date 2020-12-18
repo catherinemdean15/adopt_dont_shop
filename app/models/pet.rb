@@ -19,4 +19,11 @@ class Pet < ApplicationRecord
     end
   end
 
+  def self.pending
+    select("pets.name, applications.id as app_id")
+   .joins(pet_applications: [:application])
+   .where("pet_applications.status='Pending'")
+  end
+
+
 end

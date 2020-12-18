@@ -14,11 +14,7 @@ class Shelter < ApplicationRecord
   end
 
   def adoptable_number(boolean)
-    pets.where(adoptable: boolean).count
-  end
-
-  def pets_pending
-    
+    self.pets.where(adoptable: boolean).count
   end
 
 end
