@@ -8,5 +8,13 @@
 <h2>Statistics</h2>
   <section id=statistics>
   Average Pet Age:<%= @shelter.average_pet_age%>
-  Number of Pets Adopted: <%= @shelter.number_adopted %>
+  Number of Pets Adoptable:<%= @shelter.adoptable_number(true) %>
+  Number of Pets Adopted: <%= @shelter.adoptable_number(false) %>
   </section>
+
+<h2>Action Required</h2>
+  <section id=action_required>
+    <% require "pry"; binding.pry %>
+  Adopted Pets: <% @shelter.pets_adopted.each do |pet| %>
+  <%= pet.name %>
+  <% end %>
