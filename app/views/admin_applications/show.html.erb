@@ -1,0 +1,24 @@
+<h1>Application <%= @application.id %></h1>
+<p><%= @application.name %> </p>
+<p><%= @application.street_address %> </p>
+<p><%= @application.city %> </p>
+<p><%= @application.state %> </p>
+<p><%= @application.zip %> </p>
+<p><%= @application.description %> </p>
+<ul>Pets: <% @application.pets.each do |pet| %>
+  <li><%= pet.name %>
+    <% if @application.pet_status(pet.id, @application.id) == "Pending" %>
+  </li><%= form_tag("/admin/applications/#{@application.id}?pet_id=#{pet.id}", method: :patch) do %>
+         <%= submit_tag "Approve"%>
+         <% end %>
+         <%= form_tag("/admin/applications/#{@application.id}?pet_id=#{pet.id}", method: :patch) do %>
+                <%= submit_tag "Reject"%>
+                <% end %>
+    <% elsif @application.pet_status(pet.id, @application.id) == "Approved" %>
+        Approved!
+    <% elsif @application.pet_status(pet.id, @application.id) == "Rejected" %>
+        Rejected!
+    <% end %>
+    <% end %>
+</ul>
+<h3> Application Status: <%= @application.status %> </h3>

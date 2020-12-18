@@ -28,4 +28,5 @@ class PetsController < ApplicationController
     params.permit(:image, :name, :description, :approximate_age, :sex, :adoptable)
   end
 
+
 end

@@ -9,4 +9,14 @@ class Pet < ApplicationRecord
             }
 
   enum sex: [:female, :male]
+
+
+  def adoption_status
+    if Application.joins(:petapplications).where('petapplications.pet_id = self.id, applications.status = "Approved", petapplications.status = "Approved"')
+      self.update({
+        adoptable: false
+        })
+    end
+  end
+
 end

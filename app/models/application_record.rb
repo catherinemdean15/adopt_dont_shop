@@ -5,4 +5,8 @@ class ApplicationRecord < ActiveRecord::Base
     where("#{column} like ?", "%#{keyword.downcase.capitalize}%")
   end
 
+  def self.alphabetical
+    order(name: :desc)
+  end
+
 end

@@ -1,0 +1,16 @@
+<h1>All Shelters</h1>
+
+<% @shelters.alphabetical.each do |shelter| %>
+<p id=shelters>
+  <%= shelter.name %>
+  </p>
+  <% end %>
+
+<h3>Shleters with Pending Applications</h3>
+<section id=pending>
+<% @shelters.pending_applications.alphabetical.each do |shelter| %>
+    <section id =shelters>
+    <%= link_to "#{shelter.name}", "/shelters/#{shelter.id}" %>
+    <section>
+<% end %>
+</section>
